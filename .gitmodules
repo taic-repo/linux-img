@@ -1,0 +1,6 @@
+[submodule "linux-xlnx"]
+	path = linux-xlnx
+	url = https://github.com/taic-repo/linux-xlnx.git
+[submodule "busybox"]
+	path = busybox
+	url = https://github.com/taic-repo/busybox.git

@@ -1,0 +1,5 @@
+rootfs/*
+!rootfs/etc
+rootfs.*
+*.dtb
+Image
