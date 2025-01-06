@@ -8,6 +8,7 @@ FW_PAYLOAD = $(OPENSBI_DIR)/build/platform/$(PLATFORM)/firmware/fw_payload.bin
 DTB=rocket-chip.dtb
 ROOTFS_DIR = rootfs
 PWD=$(shell pwd)
+QEMU=../taic-qemu/build/qemu-system-riscv64
 
 clean:
 	cd busybox && make clean
@@ -37,7 +38,7 @@ opensbi: $(LINUX_IMG) dts
 	make -C $(OPENSBI_DIR) PLATFORM=$(PLATFORM) CROSS_COMPILE=$(CROSS_COMPILE)
 
 qemu: $(FW_PAYLOAD)
-	qemu-system-riscv64 -m 128M -smp 2 -machine virt -nographic -bios default -kernel $(PWD)/Image
+	$(QEMU) -m 128M -smp 8 -machine virt -nographic -bios default -kernel $(PWD)/Image
 
 upload:
 	make linux
