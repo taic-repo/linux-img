@@ -1,5 +1,6 @@
 rootfs/*
 !rootfs/etc
+!rootfs/lib
 rootfs.*
 *.dtb
 Image

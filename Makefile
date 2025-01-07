@@ -16,8 +16,8 @@ clean:
 
 buildfs:
 	cd busybox && cp ../.busyboxconfig .config && make ARCH=riscv CROSS_COMPILE=riscv64-unknown-linux-gnu- && make install ARCH=riscv CROSS_COMPILE=riscv64-unknown-linux-gnu- CONFIG_PREFIX=../rootfs
-	cd $(ROOTFS_DIR) && rm -rf dev lib var proc tmp home root mnt sys
-	cd $(ROOTFS_DIR) && mkdir dev lib var proc tmp home root mnt sys
+	cd $(ROOTFS_DIR) && rm -rf dev var proc tmp home root mnt sys
+	cd $(ROOTFS_DIR) && mkdir dev var proc tmp home root mnt sys
 	cd $(ROOTFS_DIR)/dev && sudo mknod console c 5 1 && sudo mknod null c 1 3
 	cd $(ROOTFS_DIR) && find . | cpio -o --format=newc > ../rootfs.cpio
 
