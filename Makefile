@@ -11,6 +11,9 @@ PWD=$(shell pwd)
 QEMU=../taic-qemu/build/qemu-system-riscv64
 QEMU_DTB=qemu-riscv-taic.dtb
 
+init:
+	cd linux-xlnx && git apply ../linux-xlnx-uintr-taic.patch
+
 clean:
 	cd busybox && make clean
 	cd linux-xlnx && make mrproper
