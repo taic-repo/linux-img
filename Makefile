@@ -9,6 +9,7 @@ DTB=rocket-chip.dtb
 ROOTFS_DIR = rootfs
 PWD=$(shell pwd)
 QEMU=../taic-qemu/build/qemu-system-riscv64
+QEMU_DTB=qemu-riscv-taic.dtb
 
 clean:
 	cd busybox && make clean
@@ -38,8 +39,9 @@ opensbi: $(LINUX_IMG) dts
 	make -C $(OPENSBI_DIR) PLATFORM=$(PLATFORM) CROSS_COMPILE=$(CROSS_COMPILE)
 
 qemu: $(FW_PAYLOAD)
-	$(QEMU) -m 128M -smp 8 -machine virt -nographic -bios default -kernel $(PWD)/Image
-
+	make -C $(OPENSBI_DIR) PLATFORM=generic CROSS_COMPILE=$(CROSS_COMPILE)
+	dtc -I dts -O dtb qemu-riscv-taic.dts -o $(QEMU_DTB)
+	$(QEMU) -M virt -m 128M -smp 8 -machine virt -nographic -bios $(OPENSBI_DIR)/build/platform/generic/firmware/fw_jump.bin -kernel $(PWD)/Image -dtb $(QEMU_DTB)
 upload:
 	make linux
 	make opensbi

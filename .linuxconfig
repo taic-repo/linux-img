@@ -358,6 +358,7 @@ CONFIG_RISCV_ISA_FALLBACK=y
 # end of Boot options
 
 CONFIG_PORTABLE=y
+CONFIG_RISCV_UINTR=y
 
 #
 # Power management options
@@ -2261,6 +2262,7 @@ CONFIG_IRQCHIP=y
 # CONFIG_XILINX_INTC is not set
 CONFIG_RISCV_INTC=y
 CONFIG_SIFIVE_PLIC=y
+CONFIG_RISCV_TAIC=y
 # end of IRQ chip support
 
 # CONFIG_IPACK_BUS is not set
