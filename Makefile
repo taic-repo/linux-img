@@ -1,5 +1,6 @@
 
 CROSS_COMPILE=riscv64-linux-musl-
+OPENSBI_CROSS_COMPILE=riscv64-unknown-linux-gnu-
 LINUX_IMG=linux-xlnx/arch/riscv/boot/Image
 OPENSBI_DIR = ../opensbi
 PLATFORM = axu15eg
@@ -36,12 +37,12 @@ opensbi: $(LINUX_IMG) dts
 	@echo "FW_FDT_PATH=$(PWD)/$(DTB)" >> $(OPENSBI_OBJMK)
 	@echo "FW_PAYLOAD_PATH=$(PWD)/Image" >> $(OPENSBI_OBJMK)
 	@echo "FW_PAYLOAD_FDT_ADDR=0x82200000" >> $(OPENSBI_OBJMK)
-	make -C $(OPENSBI_DIR) PLATFORM=$(PLATFORM) CROSS_COMPILE=$(CROSS_COMPILE)
+	make -C $(OPENSBI_DIR) PLATFORM=$(PLATFORM) CROSS_COMPILE=$(OPENSBI_CROSS_COMPILE)
 	@sed -i "/FW_PAYLOAD_PATH=/d" $(OPENSBI_OBJMK)
 	@sed -i "/FW_FDT_PATH=/d" $(OPENSBI_OBJMK)
 
 qemu: $(FW_PAYLOAD)
-	make -C $(OPENSBI_DIR) PLATFORM=generic CROSS_COMPILE=$(CROSS_COMPILE)
+	make -C $(OPENSBI_DIR) PLATFORM=generic CROSS_COMPILE=$(OPENSBI_CROSS_COMPILE)
 	dtc -I dts -O dtb qemu-riscv-taic.dts -o $(QEMU_DTB)
 	$(QEMU) -M virt -m 128M -smp 8 -machine virt -nographic -bios $(OPENSBI_DIR)/build/platform/generic/firmware/fw_jump.bin -kernel $(PWD)/Image -dtb $(QEMU_DTB)
 upload:
