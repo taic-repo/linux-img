@@ -1,5 +1,5 @@
 
-CROSS_COMPILE=riscv64-unknown-linux-gnu-
+CROSS_COMPILE=riscv64-linux-musl-
 LINUX_IMG=linux-xlnx/arch/riscv/boot/Image
 OPENSBI_DIR = ../opensbi
 PLATFORM = axu15eg
@@ -16,7 +16,7 @@ clean:
 	cd linux-xlnx && make mrproper
 
 buildfs:
-	cd busybox && cp ../.busyboxconfig .config && make ARCH=riscv CROSS_COMPILE=riscv64-unknown-linux-gnu- && make install ARCH=riscv CROSS_COMPILE=riscv64-unknown-linux-gnu- CONFIG_PREFIX=../rootfs
+	cd busybox && cp ../.busyboxconfig .config && make ARCH=riscv CROSS_COMPILE=riscv64-linux-musl- && make install ARCH=riscv CROSS_COMPILE=riscv64-linux-musl- CONFIG_PREFIX=../rootfs
 	cd $(ROOTFS_DIR) && rm -rf dev var proc tmp home root mnt sys
 	cd $(ROOTFS_DIR) && mkdir dev var proc tmp home root mnt sys
 	cd $(ROOTFS_DIR)/dev && sudo mknod console c 5 1 && sudo mknod null c 1 3
