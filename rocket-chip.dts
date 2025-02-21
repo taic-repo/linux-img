@@ -269,9 +269,9 @@
                         };
                 };
         };
-        L32: memory@80000000 {
+        L32: memory@0x80200000 {
                 device_type = "memory";
-                reg = <0x0 0x80000000 0x0 0x10000000>;
+                reg = <0x0 0x80200000 0x0 0xfe00000>;
         };
         L24: soc {
                 #address-cells = <2>;
