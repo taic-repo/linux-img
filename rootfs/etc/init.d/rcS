@@ -6,3 +6,6 @@ mount -a
 mkdir /dev/pts
 mount -t devpts devpts /dev/pts
 mdev -s
+ip l set eth0 up
+ip a add 192.168.10.2/24 dev eth0
+# tcpsvd 0 21 ftpd -A -w / &
